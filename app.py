@@ -14,6 +14,9 @@ if SRC.exists():
 
 import pandas as pd
 import streamlit as st
+
+st.set_page_config(page_title="Underwriting", layout="wide")
+
 import os
 import requests
 from dateutil.relativedelta import relativedelta
@@ -26,7 +29,7 @@ from underwriting.ui.sat_views import render_tax_status_cards
 from underwriting.ui.cfdi_views import render_prodserv_dual_cards
 from types import SimpleNamespace
 from underwriting.application.buro_service import obtener_buro_moffin_por_rfc
-st.set_page_config(page_title="Underwriting", layout="wide")
+
 
 
 # Soporte para Streamlit Cloud Secrets

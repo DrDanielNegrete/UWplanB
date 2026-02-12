@@ -1044,9 +1044,11 @@ with st.expander("Inputs", expanded=True):
     rfc_valid = 12 <= len(rfc) <= 13
 
     with row[1]:
-        run = st.button("Calcular", type="primary", width="stretch", disabled=not rfc_valid, key="btn_run")
+        run = st.button("Calcular", type="primary", use_container_width=True
+, disabled=not rfc_valid, key="btn_run")
     with row[2]:
-        clear = st.button("Cancelar", width="stretch", key="btn_clear")
+        clear = st.button("Cancelar", use_container_width=True
+, key="btn_clear")
 
     # ✅ IMPORTANTE: date_input toma valor de los mismos keys que modifican los botones
     with row[3]:
@@ -1056,15 +1058,24 @@ with st.expander("Inputs", expanded=True):
 
 
     # ✅ Botones de rango usando callbacks (actualizan cfdi_date_from/cfdi_date_to)
-    row[5].button("1M", width="stretch", key="rng_1m", on_click=_set_range_cb, kwargs={"months": 1})
-    row[6].button("3M", width="stretch", key="rng_3m", on_click=_set_range_cb, kwargs={"months": 3})
-    row[7].button("6M", width="stretch", key="rng_6m", on_click=_set_range_cb, kwargs={"months": 6})
-    row[8].button("1A", width="stretch", key="rng_1y", on_click=_set_range_cb, kwargs={"years": 1})
-    row[9].button("2A", width="stretch", key="rng_2y", on_click=_set_range_cb, kwargs={"years": 2})
-    row[10].button("3A", width="stretch", key="rng_3y", on_click=_set_range_cb, kwargs={"years": 3})
-    row[11].button("4A", width="stretch", key="rng_4y", on_click=_set_range_cb, kwargs={"years": 4})
-    row[12].button("5A", width="stretch", key="rng_5y", on_click=_set_range_cb, kwargs={"years": 5})
-    row[13].button("⟳", width="stretch", key="rng_reset", on_click=_reset_range_cb)
+    row[5].button("1M", use_container_width=True
+, key="rng_1m", on_click=_set_range_cb, kwargs={"months": 1})
+    row[6].button("3M", use_container_width=True
+, key="rng_3m", on_click=_set_range_cb, kwargs={"months": 3})
+    row[7].button("6M", use_container_width=True
+, key="rng_6m", on_click=_set_range_cb, kwargs={"months": 6})
+    row[8].button("1A", use_container_width=True
+, key="rng_1y", on_click=_set_range_cb, kwargs={"years": 1})
+    row[9].button("2A", use_container_width=True
+, key="rng_2y", on_click=_set_range_cb, kwargs={"years": 2})
+    row[10].button("3A", use_container_width=True
+, key="rng_3y", on_click=_set_range_cb, kwargs={"years": 3})
+    row[11].button("4A", use_container_width=True
+, key="rng_4y", on_click=_set_range_cb, kwargs={"years": 4})
+    row[12].button("5A", use_container_width=True
+, key="rng_5y", on_click=_set_range_cb, kwargs={"years": 5})
+    row[13].button("⟳", use_container_width=True
+, key="rng_reset", on_click=_reset_range_cb)
 
     if clear:
         st.session_state.pop("tax_status", None)
@@ -1303,7 +1314,8 @@ with tabs[0]:
                     },
                     index=["Ventas Anuales", "Gastos Anuales", "Utilidad Fiscal"],
                 )
-                st.dataframe(tbl, width="stretch")
+                st.dataframe(tbl, use_container_width=True
+)
 
             # gráfico mensual de utilidad fiscal (últimos 12 meses) con barras ventas vs gastos
             months = pd.date_range(start=start_12m, end=end_next_month, freq="MS")[:12]
@@ -1512,13 +1524,15 @@ with tabs[1]:
             if headers_df.empty:
                 st.info("Sin headers para el periodo.")
             else:
-                st.dataframe(headers_df, width="stretch", hide_index=True)
+                st.dataframe(headers_df, use_container_width=True
+, hide_index=True)
 
         with subtabs[1]:
             if conceptos_df.empty:
                 st.info("Sin conceptos para el periodo.")
             else:
-                st.dataframe(conceptos_df, width="stretch", hide_index=True)
+                st.dataframe(conceptos_df, use_container_width=True
+, hide_index=True)
 
         catalogo = load_ps_catalog()
         service = get_cfdi_service()
@@ -1540,7 +1554,8 @@ with tabs[1]:
             if resumen_ing.empty:
                 st.info("Sin datos para el periodo.")
             else:
-                st.dataframe(resumen_ing, width="stretch", hide_index=True)
+                st.dataframe(resumen_ing, use_container_width=True
+, hide_index=True)
 
         with subtabs[3]:
             resumen_egr = (
@@ -1559,7 +1574,8 @@ with tabs[1]:
             if resumen_egr.empty:
                 st.info("Sin datos para el periodo.")
             else:
-                st.dataframe(resumen_egr, width="stretch", hide_index=True)
+                st.dataframe(resumen_egr, use_container_width=True
+, hide_index=True)
 
 
 with tabs[2]:

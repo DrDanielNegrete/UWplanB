@@ -147,7 +147,8 @@ def _render_donut(df: pd.DataFrame, title: str) -> None:
         .properties(title=title, height=260)
     )
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True
+)
 
 
 def _render_top10_card(title: str, df: pd.DataFrame) -> None:
@@ -162,7 +163,8 @@ def _render_top10_card(title: str, df: pd.DataFrame) -> None:
         if df_show is None or df_show.empty:
             st.info("Sin datos para el periodo.")
         else:
-            st.dataframe(df_show, width='stretch', hide_index=True)
+            st.dataframe(df_show, use_container_width=True
+, hide_index=True)
 
 
 def _render_utilidad_12m_grouped(df: pd.DataFrame) -> None:
@@ -230,7 +232,8 @@ def _render_utilidad_12m_grouped(df: pd.DataFrame) -> None:
         .properties(height=320)
     )
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True
+)
 
     # utilidad como línea (si existe)
     if utilidad_col and utilidad_col in d.columns:
@@ -244,7 +247,8 @@ def _render_utilidad_12m_grouped(df: pd.DataFrame) -> None:
             )
             .properties(height=220)
         )
-        st.altair_chart(line, width='stretch')
+        st.altair_chart(line, use_container_width=True
+)
 
 
 def render_tax_status_cards(tax_status: TaxStatus) -> None:
@@ -275,7 +279,8 @@ def render_tax_status_cards(tax_status: TaxStatus) -> None:
 
             st.dataframe(
                 df,
-                width='stretch',
+                use_container_width=True
+,
                 hide_index=True,
                 column_config={
                     "Orden": st.column_config.NumberColumn(width="small"),
@@ -313,7 +318,8 @@ def render_tax_status_cards(tax_status: TaxStatus) -> None:
 
             st.dataframe(
                 df,
-                width='stretch',
+                use_container_width=True
+,
                 hide_index=True,
                 column_config={
                     "Código": st.column_config.TextColumn(width="small"),

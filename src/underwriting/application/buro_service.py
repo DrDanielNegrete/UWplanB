@@ -94,7 +94,7 @@ class MoffinBuroBase(ABC):
     # ------------------------------
     def formatear_tabla(self, df: pd.DataFrame) -> pd.DataFrame:
         return df
-    
+
     def _formatear_fecha_consulta(self):
         """
         Convierte createdAt tipo:
@@ -102,9 +102,8 @@ class MoffinBuroBase(ABC):
         """
         try:
             if not self._fecha_consulta:
-                print("no hay fecha de consulta")
                 return None
-                
+
             return self._fecha_consulta.split("T")[0]
         except Exception:
             return None
@@ -155,7 +154,7 @@ class BuroMoffinPF(MoffinBuroBase):
             return f"{valor[4:8]}-{valor[2:4]}-{valor[0:2]}"
         except Exception:
             return None
-    
+
     def _obtener_monto_pagar(self, df: pd.DataFrame) -> float:
         """
         Calcula el monto total a pagar a partir de la columna MontoPagar.
@@ -178,7 +177,6 @@ class BuroMoffinPF(MoffinBuroBase):
             return montos.sum()
         except Exception:
             return 0.0
-
 
     def _formatear_monto(self, valor):
         """
@@ -208,7 +206,6 @@ class BuroMoffinPF(MoffinBuroBase):
         except Exception:
             return None
 
-
     def formatear_tabla(self, df: pd.DataFrame) -> pd.DataFrame:
         columnas = {
             "FechaActualizacion": "Fecha actualización",
@@ -218,11 +215,9 @@ class BuroMoffinPF(MoffinBuroBase):
             "TipoContrato": "Tipo de contrato",
             "FrecuenciaPagos": "Frecuencia de pago",
             "MontoPagar": "Monto a pagar",
-            "SaldoActual":"Saldo Actual",
+            "SaldoActual": "Saldo Actual",
             "Fecha consulta": "Fecha Consulta",
-            "HistoricoPagos":"Comportamiento"
-
-
+            "HistoricoPagos": "Comportamiento"
         }
 
         # Seleccionar solo columnas relevantes
@@ -239,8 +234,6 @@ class BuroMoffinPF(MoffinBuroBase):
 
         if "SaldoActual" in df_out.columns:
             df_out["SaldoActual"] = df_out["SaldoActual"].apply(self._formatear_monto)
-
-
 
         # Motnto Total a pagar
         monto_total = self._obtener_monto_pagar(df_out)
@@ -259,16 +252,10 @@ class BuroMoffinPF(MoffinBuroBase):
                 ignore_index=True,
             )
 
-    
-            
-        return df_out.drop(columns = "original_key", errors="ignore")
-    # ======================================================
-    # =============== PERSONA MORAL ========================
-    # ======================================================
-
+        return df_out.drop(columns="original_key", errors="ignore")
 
 # ======================================================
-# =============== PERSONA MORAl ========================
+# =============== PERSONA MORAL ========================
 # ======================================================
 
 class BuroMoffinPM(MoffinBuroBase):
@@ -288,8 +275,6 @@ class BuroMoffinPM(MoffinBuroBase):
 
         return credito or []
 
-
-
 # ======================================================
 # =============== FUNCIÓN ÚNICA DE ENTRADA ==============
 # ======================================================
@@ -306,13 +291,12 @@ def obtener_buro_moffin_por_rfc(rfc: str) -> pd.DataFrame:
     elif len(rfc) == 12:
         df = BuroMoffinPM(rfc).caller()
         if "Fecha Consulta" not in df.columns:
-            df = df.rename(columns = {"Fecha consulta":"Fecha Consulta"})
+            df = df.rename(columns={"Fecha consulta": "Fecha Consulta"})
         return df
     else:
         raise ValueError(
             f"RFC inválido: '{rfc}'. PF = 13 caracteres, PM = 12."
         )
-    
-print(obtener_buro_moffin_por_rfc("AAG230203211"))
 
-
+if __name__ == "__main__":
+    print(obtener_buro_moffin_por_rfc("AAG230203211"))

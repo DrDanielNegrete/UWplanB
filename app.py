@@ -36,6 +36,13 @@ try:
 except Exception:
     pass
 
+print("BOOT 1: imports OK")
+
+st.set_page_config(page_title="Underwriting", layout="wide")
+print("BOOT 2: page_config OK")
+
+print("BOOT 3: before UI")
+
 
 st.set_page_config(page_title="Underwriting", layout="wide")
 
@@ -1014,7 +1021,8 @@ def render_filterable_grid(df: pd.DataFrame, *, key: str) -> None:
         theme="streamlit",
     )
 
-
+print("BOOT 4: about to render title")
+# =============================================================================
 st.title("Underwriting")
 
 # =============================================================================

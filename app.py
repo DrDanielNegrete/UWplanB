@@ -26,6 +26,7 @@ from underwriting.ui.sat_views import render_tax_status_cards
 from underwriting.ui.cfdi_views import render_prodserv_dual_cards
 from types import SimpleNamespace
 from underwriting.application.buro_service import obtener_buro_moffin_por_rfc
+st.set_page_config(page_title="Underwriting", layout="wide")
 
 
 # Soporte para Streamlit Cloud Secrets
@@ -36,15 +37,7 @@ try:
 except Exception:
     pass
 
-print("BOOT 1: imports OK")
 
-st.set_page_config(page_title="Underwriting", layout="wide")
-print("BOOT 2: page_config OK")
-
-print("BOOT 3: before UI")
-
-
-st.set_page_config(page_title="Underwriting", layout="wide")
 
 st.markdown(
     """

@@ -2,11 +2,6 @@ import os
 import requests
 import pandas as pd
 from abc import ABC, abstractmethod
-from dotenv import load_dotenv
-
-# Cargar variables de entorno
-load_dotenv()
-
 
 # ======================================================
 # =============== CLASE BASE ===========================

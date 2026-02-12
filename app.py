@@ -16,7 +16,6 @@ import pandas as pd
 import streamlit as st
 import os
 import requests
-from dotenv import load_dotenv
 from dateutil.relativedelta import relativedelta
 
 from underwriting.infrastructure.config import load_settings
@@ -29,7 +28,14 @@ from types import SimpleNamespace
 from underwriting.application.buro_service import obtener_buro_moffin_por_rfc
 
 
-load_dotenv()
+# Soporte para Streamlit Cloud Secrets
+try:
+    if st.secrets:
+        for k, v in st.secrets.items():
+            os.environ[str(k)] = str(v)
+except Exception:
+    pass
+
 
 st.set_page_config(page_title="Underwriting", layout="wide")
 

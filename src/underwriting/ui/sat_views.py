@@ -220,7 +220,6 @@ def _render_utilidad_12m_grouped(df: pd.DataFrame) -> None:
         .mark_bar()
         .encode(
             x=alt.X(f"{month_col}:N", title="Mes"),
-            xOffset=alt.XOffset("Tipo:N"),
             y=alt.Y("Monto:Q", title="Monto"),
             color=alt.Color("Tipo:N"),
             tooltip=[alt.Tooltip(f"{month_col}:N"), "Tipo:N", alt.Tooltip("Monto:Q", format=",.2f")],

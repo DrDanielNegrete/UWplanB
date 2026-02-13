@@ -30,3 +30,9 @@ venv/
 .DS_Store
 .vscode/
 .idea/
+
+#===========================DEBUG SNAPSHOT===========================
+
+_debug_snapshot/
+snapshot_*.zip
+debug_snapshot.py

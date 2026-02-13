@@ -49,7 +49,7 @@ def _render_table_card(title: str, df: pd.DataFrame, key: str) -> None:
             return
 
         safe = _safe_df(df)
-        st.dataframe(safe, width='stretch', hide_index=True, key=key)
+        st.dataframe(safe, use_container_width=True, hide_index=True, key=key)
 
 
 def render_prodserv_dual_cards(

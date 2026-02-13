@@ -29,7 +29,7 @@ from underwriting.ui.sat_views import render_tax_status_cards
 from underwriting.ui.cfdi_views import render_prodserv_dual_cards
 from types import SimpleNamespace
 from underwriting.application.buro_service import obtener_buro_moffin_por_rfc
-
+from underwriting.domain.models import TaxStatus  
 
 
 # Soporte para Streamlit Cloud Secrets
@@ -185,12 +185,13 @@ def get_cfdi_service() -> CfdiService:
 
 
 @st.cache_data(show_spinner=False, ttl=60 * 10)
-def fetch_tax_status(rfc: str):
+def fetch_tax_status(rfc: str) -> dict:
     service = get_service()
-    return service.get_tax_status(rfc)
+    ts = service.get_tax_status(rfc)  # TaxStatus
+    return ts.model_dump()  # <- dict pickleable
 
 
-@st.cache_data(show_spinner=False, ttl=60 * 10)
+
 def fetch_cfdi(rfc: str, source: str, date_from: date | None, date_to: date | None, local_dir: str):
     service = get_cfdi_service()
     if source == "local":
@@ -507,7 +508,7 @@ def _render_donut(df: pd.DataFrame, *, title: str, value_col: str = "_total_num"
         .properties(title=title, height=260)
     )
 
-    st.altair_chart(chart, width='stretch')
+    st.altair_chart(chart, use_container_width=True)
 
 
 
@@ -1163,7 +1164,7 @@ if run:
     else:
         with st.spinner("Consultando SAT y CFDI..."):
             try:
-                st.session_state["tax_status"] = fetch_tax_status(rfc)
+                st.session_state["tax_status"] = TaxStatus.model_validate(fetch_tax_status(rfc))
                 st.session_state["last_rfc"] = rfc
             except Exception as e:
                 st.error(f"Error consultando SAT en Syntage: {e}")
@@ -1352,7 +1353,7 @@ with tabs[0]:
                     .properties(height=320)
                 )
 
-                st.altair_chart(chart, width='stretch')
+                st.altair_chart(chart, use_container_width=True)
 
                         
             # =============================================================================

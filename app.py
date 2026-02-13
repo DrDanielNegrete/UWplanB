@@ -1345,7 +1345,6 @@ with tabs[0]:
                     .mark_bar()
                     .encode(
                         x=alt.X("Mes:N", title="Mes"),
-                        xOffset=alt.XOffset("Tipo:N"),
                         y=alt.Y("Monto:Q", title="Monto"),
                         color=alt.Color("Tipo:N"),
                         tooltip=["Mes:N", "Tipo:N", alt.Tooltip("Monto:Q", format=",.2f")],
